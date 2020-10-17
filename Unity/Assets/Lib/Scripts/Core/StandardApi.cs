@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Reflection;
+using RenderHeads.UnityOmeka.Data;
+
 namespace RenderHeads.UnityOmeka.Core
 {
 
@@ -101,6 +103,24 @@ namespace RenderHeads.UnityOmeka.Core
         public void SetRestEndPoint(string endpoint)
         {
             _endpoint = new Uri(new Uri(endpoint), "api"); ;
+        }
+
+        public async Task<ItemSetSearchResponse> SearchItemSets(ItemSetsSearchParams searchparams)
+        {
+            var result = await Search(ResourceType.item_sets, searchparams);
+            var response  = new ItemSetSearchResponse() { ResponseCode = result.ResponseCode, RequestURL = result.RequestURL }; 
+            if (result.ResponseCode == 200)
+            {
+                JArray array = (JArray)result.Message;
+                List<ItemSet> itemSets = new List<ItemSet>();
+                foreach (var  entry in array)
+                {
+
+                }
+
+
+            }
+                return response;
         }
     }
 }

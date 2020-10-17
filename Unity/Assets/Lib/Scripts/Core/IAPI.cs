@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using RenderHeads.UnityOmeka.Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +14,13 @@ namespace RenderHeads.UnityOmeka.Core
     public class SearchResponse
     {
         public JToken Message;
+        public long ResponseCode;
+        public string RequestURL;
+    }
+
+    public class ItemSetSearchResponse
+    {
+        public List<ItemSet> ItemSets;
         public long ResponseCode;
         public string RequestURL;
     }
@@ -286,6 +294,15 @@ namespace RenderHeads.UnityOmeka.Core
         /// <param name="resourceType">The search paramters to filter the search (create an appropriate search param instance for your resource type)</param>
         /// <returns>A json object containing the data you need</returns>
         Task<SearchResponse> Search(ResourceType resourceType, SearchParams searchparams);
+
+
+        /// <summary>
+        /// Search the api for a given resource type
+        /// </summary>
+        /// <param name="resourceType">Supported resource types are item, item set and media</param>
+        /// <param name="resourceType">The search paramters to filter the search (create an appropriate search param instance for your resource type)</param>
+        /// <returns>A json object containing the data you need</returns>
+        Task<ItemSetSearchResponse> SearchItemSets(ItemSetsSearchParams searchparams);
 
     }
 }
