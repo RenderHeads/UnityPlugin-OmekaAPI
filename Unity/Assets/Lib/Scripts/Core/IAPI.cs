@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using RenderHeads.UnityOmeka.Data;
+using RenderHeads.UnityOmeka.Data.Vocabularies;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using UnityEngine;
 namespace RenderHeads.UnityOmeka.Core
 {
 
-
+    [System.Serializable]
     public class SearchResponse
     {
         public JToken Message;
@@ -18,12 +19,14 @@ namespace RenderHeads.UnityOmeka.Core
         public string RequestURL;
     }
 
-    public class ItemSetSearchResponse
+    [System.Serializable]
+    public class ItemSetSearchResponse<T> where T:Vocabulary, new()
     {
-        public List<ItemSet> ItemSets;
+        public List<ItemSet<T>> ItemSets;
         public long ResponseCode;
         public string RequestURL;
     }
+    [System.Serializable]
 
     public class Parameters
     {
@@ -32,6 +35,8 @@ namespace RenderHeads.UnityOmeka.Core
         [NonSerialized]
         public string key_credential = string.Empty;
     }
+    [System.Serializable]
+
     public class CommonParams:Parameters
     {
         /// <summary>
@@ -59,6 +64,7 @@ namespace RenderHeads.UnityOmeka.Core
         /// </summary>
         public int offset = 0;
     }
+    [System.Serializable]
 
     public class SearchParams:CommonParams
     {
@@ -96,6 +102,7 @@ namespace RenderHeads.UnityOmeka.Core
         public bool? is_public =null;
     }
 
+    [System.Serializable]
     public class ItemSearchParameters:SearchParams
      {
         /// <summary>
@@ -111,7 +118,7 @@ namespace RenderHeads.UnityOmeka.Core
         /// </summary>
         public bool? site_attachments_only = null;
     }
-
+    [System.Serializable]
     public class MediaSearchParams:SearchParams
     {
         /// <summary>
@@ -127,8 +134,8 @@ namespace RenderHeads.UnityOmeka.Core
         /// </summary>
         public int site_id = -1;
     }
-
-    public  class ItemSetsSearchParams:SearchParams
+    [System.Serializable]
+    public class ItemSetsSearchParams:SearchParams
     {
         /// <summary>
         /// Get item sets that are open or closed	
@@ -140,7 +147,7 @@ namespace RenderHeads.UnityOmeka.Core
         /// </summary>
         public int site_id = -1;
     }
-
+    [System.Serializable]
     public class VocabulariesSearchParams:SearchParams
     {
         /// <summary>
@@ -154,7 +161,7 @@ namespace RenderHeads.UnityOmeka.Core
         public string prefix = string.Empty;
 
     }
-
+    [System.Serializable]
     public class ResourceClassSearchParams :SearchParams
     {
         /// <summary>
@@ -183,7 +190,7 @@ namespace RenderHeads.UnityOmeka.Core
         public string term = string.Empty;
 
     }
-
+    [System.Serializable]
     public class PropertiesSearchParams:SearchParams
     {
         /// <summary>
@@ -212,6 +219,7 @@ namespace RenderHeads.UnityOmeka.Core
         public string term = string.Empty;
 
     }
+    [System.Serializable]
 
     public class UserSearchParams:SearchParams
     {
@@ -272,7 +280,8 @@ namespace RenderHeads.UnityOmeka.Core
         api_resources
 
     }
-    public interface IAPI
+
+    public interface IAPI<T> where T:Vocabulary,new()
     {
 
         /// <summary>
@@ -302,7 +311,7 @@ namespace RenderHeads.UnityOmeka.Core
         /// <param name="resourceType">Supported resource types are item, item set and media</param>
         /// <param name="resourceType">The search paramters to filter the search (create an appropriate search param instance for your resource type)</param>
         /// <returns>A json object containing the data you need</returns>
-        Task<ItemSetSearchResponse> SearchItemSets(ItemSetsSearchParams searchparams);
+        Task<ItemSetSearchResponse<T>> SearchItemSets(ItemSetsSearchParams searchparams) ;
 
     }
 }

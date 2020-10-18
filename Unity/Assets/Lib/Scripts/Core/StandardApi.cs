@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Reflection;
 using RenderHeads.UnityOmeka.Data;
+using RenderHeads.UnityOmeka.Data.Vocabularies;
 
 namespace RenderHeads.UnityOmeka.Core
 {
@@ -25,7 +26,7 @@ namespace RenderHeads.UnityOmeka.Core
             return ((Task)tcs.Task).GetAwaiter();
         }
     }
-    public class StandardApi : IAPI
+    public class StandardApi<T> : IAPI<T> where T:Vocabulary,new()
     {
 
         
@@ -105,20 +106,21 @@ namespace RenderHeads.UnityOmeka.Core
             _endpoint = new Uri(new Uri(endpoint), "api"); ;
         }
 
-        public async Task<ItemSetSearchResponse> SearchItemSets(ItemSetsSearchParams searchparams)
+        public async Task<ItemSetSearchResponse<T>> SearchItemSets(ItemSetsSearchParams searchparams)
         {
             var result = await Search(ResourceType.item_sets, searchparams);
-            var response  = new ItemSetSearchResponse() { ResponseCode = result.ResponseCode, RequestURL = result.RequestURL }; 
+            var response  = new ItemSetSearchResponse<T>() { ResponseCode = result.ResponseCode, RequestURL = result.RequestURL }; 
             if (result.ResponseCode == 200)
             {
                 JArray array = (JArray)result.Message;
-                List<ItemSet> itemSets = new List<ItemSet>();
+                List<ItemSet<T>> itemSets = new List<ItemSet<T>>();
                 foreach (var  entry in array)
                 {
-
+                    ItemSet<T> r = ItemSet<T>.FromJObject((JObject)entry);
+                    itemSets.Add(r);
                 }
 
-
+                response.ItemSets = itemSets;
             }
                 return response;
         }

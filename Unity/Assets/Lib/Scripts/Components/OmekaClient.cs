@@ -2,20 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RenderHeads.UnityOmeka.Core;
+using RenderHeads.UnityOmeka.Data.Vocabularies;
+
 namespace RenderHeads.UnityOmeka.Components
 {
 
     public class OmekaClient : MonoBehaviour
     {
+        public IAPI<DublicCoreVocabulary> Api { get; private set; }
 
-        private static IAPI _apiInstance;
-        public static IAPI Instance
-        {
-            get
-            {          
-                return _apiInstance;
-            }
-        }
         [SerializeField] private ClientSettings _clientSettings;
         void Awake()
         {
@@ -23,10 +18,10 @@ namespace RenderHeads.UnityOmeka.Components
             {
                 throw new System.Exception("[OmekaClient] Init failed, client settings is null");
             }
-            if (_apiInstance == null)
+            if (Api == null)
             {
-                IAPI api = new StandardApi();
-                _apiInstance = api;
+                IAPI<DublicCoreVocabulary> api = new StandardApi<DublicCoreVocabulary>();
+                Api = api;
                 api.SetRestEndPoint(_clientSettings.OmekaEndpoint);
                 api.SetCredentials(_clientSettings.KeyIdentity, _clientSettings.KeyCredential);
             }
