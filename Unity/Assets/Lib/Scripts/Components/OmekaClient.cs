@@ -13,7 +13,7 @@ namespace RenderHeads.UnityOmeka.Components
     {
         public IAPI<DublicCoreVocabulary> Api { get; private set; }
 
-        [SerializeField] private ClientSettings _clientSettings;
+        [SerializeField] private ClientSettings _clientSettings = null;
         void Awake()
         {
             if (_clientSettings == null)

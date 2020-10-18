@@ -14,13 +14,13 @@ namespace RenderHeads.UnityOmeka.Example
     public class GameManager : MonoBehaviour
     {
 
-        [SerializeField] private Button ButtonPrefab;
+        [SerializeField] private Button ButtonPrefab = null;
 
-        [SerializeField] private Transform _buttonRoot;
+        [SerializeField] private Transform _buttonRoot = null;
 
-        [SerializeField] private OmekaClient _client;
+        [SerializeField] private OmekaClient _client = null;
 
-        [SerializeField] private RawImage _mediaDisplay;
+        [SerializeField] private RawImage _mediaDisplay =null;
 
         private Texture2D _mediaDisplayTexture;
 
