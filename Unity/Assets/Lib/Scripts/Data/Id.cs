@@ -26,5 +26,25 @@ namespace RenderHeads.UnityOmeka.Data
             idObject.Id = int.Parse(jobject["o:id"].ToString());
             return idObject;
         }
+
+        public static IdObject[] FromJArray(JArray array)
+        {
+            if (array == null)
+            {
+                return null;
+            }
+
+            IdObject[] idObjects = new IdObject[array.Count];
+
+            int n = 0;
+
+            foreach (var entry in array)
+            {
+                idObjects[n] = IdObject.FromJObject((JObject)entry);
+                n++;
+            }
+
+            return idObjects;
+        }
     }
 }

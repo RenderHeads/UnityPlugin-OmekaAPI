@@ -10,7 +10,7 @@ namespace RenderHeads.UnityOmeka.Data
 {
 
     [System.Serializable]
-    public class ItemSet<T> where T : Vocabulary, new()
+    public class Item<T> where T : Vocabulary, new()
     {
         public IdObject Id;
         public string[] Type;
@@ -19,32 +19,34 @@ namespace RenderHeads.UnityOmeka.Data
         public IdObject ResourceClass;
         public IdObject ResourceTemplate;
         public IdObject Thumbnail;
+        public IdObject[] Media;
+        public IdObject[] ItemSet;
         public string Title;
         public DateTime? Created;
         public DateTime? Modified;
-        public bool? IsOpen;
         public T Vocabulary;
 
-        public static ItemSet<T> FromJObject(JObject jobject)
+        public static Item<T> FromJObject(JObject jobject)
         {
-            ItemSet<T> item = new ItemSet<T>();
+            Item<T> item = new Item<T>();
             item.Id = IdObject.FromJObject(jobject);
-            item.Type = jobject["@type"].ToObject<string[]>();          
-            item.IsPublic = Helpers.TryGet<JToken>(jobject,"o:is_public")?.ToObject<bool?>();
-            item.Owner = IdObject.FromJObject(Helpers.TryGet<JObject>(jobject,"o:owner"));
+            item.Type = Helpers.TryGet<JArray>(jobject,"@type")?.ToObject<string[]>();
+            item.IsPublic = Helpers.TryGet<JToken>(jobject, "o:is_public")?.ToObject<bool?>();
+            item.Owner = IdObject.FromJObject(Helpers.TryGet<JObject>(jobject, "o:owner"));
             item.ResourceClass = IdObject.FromJObject(Helpers.TryGet<JObject>(jobject, "o:resource_class"));
             item.ResourceTemplate = IdObject.FromJObject(Helpers.TryGet<JObject>(jobject, "o:resource_template"));
             item.Thumbnail = IdObject.FromJObject(Helpers.TryGet<JObject>(jobject, "o:thumbnail"));
             item.Title = Helpers.TryGet<JToken>(jobject, "o:title")?.ToString();
             item.Created = Helpers.DateTimeFromJObject(Helpers.TryGet<JObject>(jobject, "o:created"));
             item.Modified = Helpers.DateTimeFromJObject(Helpers.TryGet<JObject>(jobject, "o:modified"));
-            item.IsOpen = Helpers.TryGet<JToken>(jobject, "o:is_open")?.ToObject<bool?>();
+            item.Media = IdObject.FromJArray(Helpers.TryGet<JArray>(jobject, "o:media"));
+            item.ItemSet = IdObject.FromJArray(Helpers.TryGet<JArray>(jobject, "o:item_set"));
             item.Vocabulary = new T();
             item.Vocabulary.ApplyVocabulary(jobject);
             return item;
         }
 
-      
+
     }
 
 

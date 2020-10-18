@@ -8,7 +8,7 @@ namespace RenderHeads.UnityOmeka.Data
 {
     public static class Helpers
     {
-        public static T TryGet<T>(JObject root, string key) where T:JToken
+        public static T TryGet<T>(JObject root, string key, bool supressError=false) where T:JToken
         {
             JToken token;
             if (root.TryGetValue(key, out token))
@@ -25,13 +25,16 @@ namespace RenderHeads.UnityOmeka.Data
                 }
                 catch
                 {
-                    Debug.LogWarning($"[TryGetJobject] Found {key} in root object but could not cast value to JObject");
+                    Debug.LogWarning($"[TryGetJobject] Found {key} in root object but could not cast value to JObject,  value is: {token}");
                     return null;
                 }
             }
             else
             {
-                Debug.LogError($"[TryGetJobject] Could not find {key} in root object");
+                if (!supressError)
+                {
+                    Debug.LogError($"[TryGetJobject] Could not find {key} in root object");
+                }
                 return null;
             }
         }

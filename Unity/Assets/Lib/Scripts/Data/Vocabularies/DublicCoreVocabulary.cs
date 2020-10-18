@@ -20,7 +20,7 @@ namespace RenderHeads.UnityOmeka.Data.Vocabularies
         {
             JArray array;
 
-            array = Helpers.TryGet<JArray>(root, term);
+            array = Helpers.TryGet<JArray>(root, term, supressError:true);
 
             if (array == null)
             {
@@ -32,8 +32,8 @@ namespace RenderHeads.UnityOmeka.Data.Vocabularies
                 int i = 0;
                 foreach (var entry in array)
                 {
-
                     p[i] = FromJObject((JObject)entry);
+                    i++;
                 }
                 return p;
             }

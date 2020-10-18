@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using RenderHeads.UnityOmeka.Core;
 using RenderHeads.UnityOmeka.Data.Vocabularies;
+using RenderHeads.UnityOmeka.Core.Interface;
+using RenderHeads.UnityOmeka.Core.Impl;
 
 namespace RenderHeads.UnityOmeka.Components
 {

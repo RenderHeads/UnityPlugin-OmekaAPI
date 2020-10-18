@@ -9,27 +9,14 @@ using UnityEngine.Networking;
 using System.Reflection;
 using RenderHeads.UnityOmeka.Data;
 using RenderHeads.UnityOmeka.Data.Vocabularies;
-
-namespace RenderHeads.UnityOmeka.Core
+using RenderHeads.UnityOmeka.Core.Interface;
+using RenderHeads.UnityOmeka.Core.Extensions;
+namespace RenderHeads.UnityOmeka.Core.Impl
 {
 
-    /// <summary>
-    /// Allows for UnityWeb request to follow async / await pattern
-    /// https://gist.github.com/mattyellen/d63f1f557d08f7254345bff77bfdc8b3
-    /// </summary>
-    public static class ExtensionMethods
-    {
-        public static TaskAwaiter GetAwaiter(this AsyncOperation asyncOp)
-        {
-            var tcs = new TaskCompletionSource<object>();
-            asyncOp.completed += obj => { tcs.SetResult(null); };
-            return ((Task)tcs.Task).GetAwaiter();
-        }
-    }
     public class StandardApi<T> : IAPI<T> where T:Vocabulary,new()
     {
 
-        
         private string _id = string.Empty;
         private string _key = string.Empty;
         private Uri _endpoint = null;
@@ -123,6 +110,44 @@ namespace RenderHeads.UnityOmeka.Core
                 response.ItemSets = itemSets;
             }
                 return response;
+        }
+
+        public async Task<ItemSearchResponse<T>> SearchItems(ItemSearchParams searchparams)
+        {
+            var result = await Search(ResourceType.items, searchparams);
+            var response = new ItemSearchResponse<T>() { ResponseCode = result.ResponseCode, RequestURL = result.RequestURL };
+            if (result.ResponseCode == 200)
+            {
+                JArray array = (JArray)result.Message;
+                List<Item<T>> itemSets = new List<Item<T>>();
+                foreach (var entry in array)
+                {
+                    Item<T> r = Item<T>.FromJObject((JObject)entry);
+                    itemSets.Add(r);
+                }
+
+                response.Items = itemSets;
+            }
+            return response;
+        }
+
+        public async Task<MediaSearchResponse<T>> SearchMedia(MediaSearchParams searchparams)
+        {
+            var result = await Search(ResourceType.media, searchparams);
+            var response = new MediaSearchResponse<T>() { ResponseCode = result.ResponseCode, RequestURL = result.RequestURL };
+            if (result.ResponseCode == 200)
+            {
+                JArray array = (JArray)result.Message;
+                List<Media<T>> itemSets = new List<Media<T>>();
+                foreach (var entry in array)
+                {
+                    Media<T> r = Media<T>.FromJObject((JObject)entry);
+                    itemSets.Add(r);
+                }
+
+                response.Media = itemSets;
+            }
+            return response;
         }
     }
 }
