@@ -68,7 +68,6 @@ The implementation currently supports a Dublin Core Vocabulary, and will convert
 The project is licensed under a GPL-3.0 license, which means you can use it for commerical and non commercial use, but the project you use it in also needs to apply the GPL-3.0 license and be open-sourced. If this license is not suitable for you, please contact us at southafrica@renderheads.com and we can discuss an appropriate commercial license.
 
 ## Contributors License
-If you wish to contribute to this project, you will need to agree to our contributors license terms so that we can ensure that the community is free to use your contributions.
-The Contributors License Agreement is avaiable here for review.
+We are currently working on a Contributors License Agreement, which we will put up here when its ready. In the mean time if you would like to contribute, please reach out to us.
 
 
