@@ -1,7 +1,8 @@
-© RenderHeads 2020
+© [RenderHeads](http://www.renderheads.com) 2020
+Author / Maintainer: [Shane Marks](https://www.shanemarks.co.za)
 # Omeka S API support for Unity3D
 
-This repo contains an implementation of the Omeka API for Unity3D to retrieve content from an Omeka System and use it within unity.
+This repository contains an implementation of the Omeka API for Unity3D to retrieve content from an Omeka System and use it within unity.
 
 ## What is [Omeka](https://github.com/omeka/omeka-s)?
 Omeka S is a web publication system for universities, galleries, libraries, archives, and museums. It consists of a local network of independently curated exhibits sharing a collaboratively built pool of items, media, and their metadata.
@@ -14,7 +15,7 @@ Api search of *Item Sets, Items and Media*. I felt this subset of features gives
 Dublin Core Vocabulary. The API client is designed in such a way that you can extend support for other vocabularies easily.
 
 ## Dependencies
-The implementation relies of [NewtonSoft Json.Net]() as deserialization of the Json-LD information. We have made a vanilla build of the library, however there are Unity specific version available on the [unity asset store](https://assetstore.unity.com/packages/tools/input-management/json-net-for-unity-11347) that you should use in your production project.
+The implementation relies on [NewtonSoft Json.Net]() for deserialization of the Json-LD information returned from the API. We have included a vanilla build of the library, however there is a Unity specific version available on the [unity asset store](https://assetstore.unity.com/packages/tools/input-management/json-net-for-unity-11347) that you should use in your production project.
 
 ## Requirements
 Unity 2018 LTS or greater
@@ -30,14 +31,13 @@ Within the Unity project you will find the following folders:
 
 ## Using the API
 ### Configure your settings
-In the inspector editor data/ClientSettings and configure your endpoint and api keys (optional, for accessing private information).
-The endpoint does not need to include /api/ at the end
+Configure the scriptableobject found in data/ClientSettings in order to set your endpoint and api keys (optional, for accessing private information).
+The endpoint does not need to include /api/ at the end.
 
 ### Add Client component to your scene
-Add the OmekaClient component to your scene. This will initialize an instance of the API on awake.
+Add the OmekaClient component to your scene. This will initialize an instance of the API on awake. We have not included a singleton pattern for the component, however such functionality is easy to extend.
 
 ### Use the API and make requests
-
 Find a reference to the API component and call the relevant API endpoint with search parameters, for example:
 
 `ItemSearchResponse<DublicCoreVocabulary> response = await _client.Api.SearchItems(new ItemSearchParams() { item_set_id = index.Id });`
