@@ -131,6 +131,7 @@ namespace RenderHeads.UnityOmeka.Example
             ClearChildren(_buttonRoot);
             for (int i = 0; i < response.Media.Count; i++)
             {
+                //need to store index so the lamda function knows about it.
                 int n = i;
                 GenerateButton(response.Media[n].Title, () => { ShowMedia(response.Media[n].OriginalUrl); });
             }
@@ -141,9 +142,7 @@ namespace RenderHeads.UnityOmeka.Example
             Button b = GameObject.Instantiate<Button>(_buttonPrefab);
             b.GetComponentInChildren<Text>().text = buttonName;
             b.onClick.AddListener(callback);
-
             b.gameObject.transform.SetParent(_buttonRoot);
-
             return b;
 
         }
