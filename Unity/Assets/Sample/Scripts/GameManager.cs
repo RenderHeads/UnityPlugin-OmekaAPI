@@ -60,7 +60,7 @@ namespace RenderHeads.UnityOmeka.Example
         /// </summary>
         public async void SearchItemSets()
         {
-            var response = await _client.Api.SearchItemSets(new ItemSetsSearchParams());
+            ItemSetSearchResponse<DublicCoreVocabulary> response = await _client.Api.SearchItemSets(new ItemSetsSearchParams());
             GenerateItemSetButtons(response);
         }
 
@@ -71,7 +71,7 @@ namespace RenderHeads.UnityOmeka.Example
         /// <param name="index">The ID of the item set to search</param>
         public async void SearchItemSet(IdObject index)
         {
-            var response = await _client.Api.SearchItems(new ItemSearchParams() { item_set_id = index.Id });
+            ItemSearchResponse<DublicCoreVocabulary> response = await _client.Api.SearchItems(new ItemSearchParams() { item_set_id = index.Id });
             GenerateItemButtons(response);
         }
 
@@ -81,7 +81,7 @@ namespace RenderHeads.UnityOmeka.Example
         /// <param name="index">The ID of the item to search</param>
         public async void SearchMedia(IdObject index)
         {
-            var response = await _client.Api.SearchMedia(new MediaSearchParams() { item_id = index.Id });
+            MediaSearchResponse<DublicCoreVocabulary> response = await _client.Api.SearchMedia(new MediaSearchParams() { item_id = index.Id });
             GenerateMediaButtons(response);
         }
         /// <summary>
