@@ -16,7 +16,7 @@ This repository contains an implementation of the Omeka API for Unity3D to retri
 Omeka S is a web publication system for universities, galleries, libraries, archives, and museums. It consists of a local network of independently curated exhibits sharing a collaboratively built pool of items, media, and their metadata.
 
 ## Current Functionality
-Read-only support. Currently, no plans for adding write support (maybe in the future if there is a demand for it).
+Read-only support. Currently there are no plans for adding write support (maybe in the future if there is a demand for it).
 
 Api search of *Item Sets, Items and Media*. I felt this subset of features gives the most coverage for typical usage in Unity.
 
