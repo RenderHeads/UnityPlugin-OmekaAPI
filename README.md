@@ -22,11 +22,11 @@ Unity 2018 LTS or greater
 ## Project Structure
 Within the Unity project you will find the following folders:
 
-[https://github.com/RenderHeads/lib-unity-omeka/tree/main/Unity/Assets/Lib](**Lib**): Contains the API implementation
+[**Lib**](https://github.com/RenderHeads/lib-unity-omeka/tree/main/Unity/Assets/Lib): Contains the API implementation
 
-[https://github.com/RenderHeads/lib-unity-omeka/tree/main/Unity/Assets/3rdParty](**3rdParty**): Contains the 3rd party dependencies
+[**3rdParty**](https://github.com/RenderHeads/lib-unity-omeka/tree/main/Unity/Assets/3rdParty) Contains the 3rd party dependencies
 
-[https://github.com/RenderHeads/lib-unity-omeka/tree/main/Unity/Assets/Sample](**Sample**): Contains a test scene and example of how to work with the API
+[**Sample**](https://github.com/RenderHeads/lib-unity-omeka/tree/main/Unity/Assets/Sample) Contains a test scene and example of how to work with the API
 
 ## Using the API
 ### Configure your settings
