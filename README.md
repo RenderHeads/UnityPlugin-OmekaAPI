@@ -11,7 +11,7 @@ Read-only support. Currently, no plans for adding write support (maybe in the fu
 
 Api search of *Item Sets, Items and Media*. I felt this subset of features gives the most coverage for typical usage in Unity.
 
-Dublin Core Vocabulary. The API is designed in such a way that you can create new vocabularies.
+Dublin Core Vocabulary. The API client is designed in such a way that you can extend support for other vocabularies easily.
 
 ## Dependencies
 The implementation relies of NewtonSoft Json.Net as deserialization of the Json-LD information. We have made a vanilla build of the library, however there are Unity specific version available on the unity asset store that you should use in your production project.
