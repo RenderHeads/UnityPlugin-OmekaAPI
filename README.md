@@ -14,7 +14,10 @@ Api search of *Item Sets, Items and Media*. I felt this subset of features gives
 Dublin Core Vocabulary. The API is designed in such a way that you can create new vocabularies.
 
 ## Dependencies
-The implementation relies of NewtonSoft Json.Net as deserialization of the Json-LD information.
+The implementation relies of NewtonSoft Json.Net as deserialization of the Json-LD information. We have made a vanilla build of the library, however there are Unity specific version available on the unity asset store that you should use in your production project.
+
+## Requirements
+Unity 2018 LTS or greater
 
 ## Project Structure
 Within the Unity project you will find the following folders:
