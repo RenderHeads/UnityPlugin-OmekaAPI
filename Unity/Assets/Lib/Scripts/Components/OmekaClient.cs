@@ -15,7 +15,7 @@ namespace RenderHeads.UnityOmeka.Components
     public class OmekaClient : MonoBehaviour
     {
         /// <summary>
-        /// Reference to our api business logic
+        /// Reference to our api business logic. The type definition defines the vocabulary that api will know about.
         /// </summary>
         public IAPI<DublicCoreVocabulary> Api { get; private set; }
 
