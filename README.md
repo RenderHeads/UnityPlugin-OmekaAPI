@@ -55,3 +55,12 @@ Each API endpoint returns a response object, which include the URL that was requ
 The implementation currently supports a Dublin Core Vocabulary, and will convert the dublin core meta data to a typed object. If you need to support a custom vocabulary or a different vocabulary, you can create a new class that inherits type Vocabulary, and implement the abstract method to parse the JSON data, as per the DublinCore implementation.
 
 
+# Usage and Contribution
+## Usage License
+The project is licensed under a GPL-3.0 license. If this license is not suitable for you, please contact us at southafrica@renderheads.com and we can discuss an appropriate commerical license.
+
+## Contributors License
+If you wish to contribute to this project, you will need to agree to our contributors license terms so that we can ensure that the community is free to use your contributions.
+The Contributors License Agreement is avaiable here for review.
+
+
