@@ -19,12 +19,11 @@ The implementation relies of NewtonSoft Json.Net as deserialization of the Json-
 ## Project Structure
 Within the Unity project you will find the following folders:
 
-### Lib
-Contains the API implementation
-### 3rdParty
-Contains the 3rd party dependencies
-### Sample
-Contains a test scene and example of how to work with the API
+**Lib**: Contains the API implementation
+
+**3rdParty**: Contains the 3rd party dependencies
+
+**Sample**: Contains a test scene and example of how to work with the API
 
 ## Using the API
 ### Configure your settings
