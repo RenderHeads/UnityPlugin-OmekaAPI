@@ -1,8 +1,7 @@
-<div align="center">
-    <img src="http://renderheads.com/wp-content/themes/renderheads-theme/assets/media/logo.svg">
-</div>
+
+
 <p align="center">
-  © <a href="http://www.renderheads.com">RenderHeads </a> 2020
+  <b>© <a href="http://www.renderheads.com">RenderHeads </a> 2020<b/>
 </p>
 <p align ="center"> Author / Maintainer: <a href="https://www.shanemarks.co.za">Shane Marks</a> </p>
 
