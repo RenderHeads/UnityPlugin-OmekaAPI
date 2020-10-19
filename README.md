@@ -6,7 +6,7 @@
 <p align ="center"> Author / Maintainer: <a href="https://www.shanemarks.co.za">Shane Marks</a> </p>
 
 
-# [Omeka-S] (https://omeka.org/) API support for Unity3D
+# [Omeka-S](https://omeka.org/) API support for Unity3D
 
 This repository contains an implementation of the Omeka API for Unity3D to retrieve content from an Omeka System and use it within unity.
 
