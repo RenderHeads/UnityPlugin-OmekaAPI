@@ -1,6 +1,12 @@
-© [RenderHeads](http://www.renderheads.com) 2020
+<div align="center">
+    <img src="http://renderheads.com/wp-content/themes/renderheads-theme/assets/media/logo.svg">
+</div>
+<p align="center">
+  © <a href="http://www.renderheads.com">RenderHeads </a> 2020
+</p>
+<p align ="center"> Author / Maintainer: <a href="https://www.shanemarks.co.za">Shane Marks</a> </p>
 
-Author / Maintainer: [Shane Marks](https://www.shanemarks.co.za)
+
 # Omeka S API support for Unity3D
 
 This repository contains an implementation of the Omeka API for Unity3D to retrieve content from an Omeka System and use it within unity.
