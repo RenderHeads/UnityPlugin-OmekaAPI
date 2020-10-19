@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace RenderHeads.UnityOmeka.Core
 {
+    /// <summary>
+    /// Definition of currently supports resource types for api searching.
+    /// </summary>
     public enum ResourceType
     {
         /// <summary>

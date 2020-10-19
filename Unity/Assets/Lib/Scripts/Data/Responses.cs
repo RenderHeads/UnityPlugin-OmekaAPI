@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
+﻿/// <summary>
+/// Contains definitions of search responses for from api requests.
+/// </summary>
+
+using Newtonsoft.Json.Linq;
 using RenderHeads.UnityOmeka.Data.Vocabularies;
 using System.Collections.Generic;
 

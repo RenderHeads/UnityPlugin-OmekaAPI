@@ -9,10 +9,19 @@ using RenderHeads.UnityOmeka.Core.Impl;
 namespace RenderHeads.UnityOmeka.Components
 {
 
+    /// <summary>
+    /// Main component that initializes our API
+    /// </summary>
     public class OmekaClient : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to our api business logic
+        /// </summary>
         public IAPI<DublicCoreVocabulary> Api { get; private set; }
 
+        /// <summary>
+        /// Reference to client settings containing api endpoint and user details
+        /// </summary>
         [SerializeField] private ClientSettings _clientSettings = null;
         void Awake()
         {
@@ -26,6 +35,7 @@ namespace RenderHeads.UnityOmeka.Components
                 Api = api;
                 api.SetRestEndPoint(_clientSettings.OmekaEndpoint);
                 api.SetCredentials(_clientSettings.KeyIdentity, _clientSettings.KeyCredential);
+                Debug.Log("[OmekaClient] Successfully Initialized");
             }
         } 
        

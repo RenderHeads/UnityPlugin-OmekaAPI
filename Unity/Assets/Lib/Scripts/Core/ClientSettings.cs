@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace RenderHeads.UnityOmeka.Core
 {
+
+    /// <summary>
+    /// Settings for our Omeka Client
+    /// </summary>
     [CreateAssetMenu(fileName = "ClientSettings", menuName = "RenderHeads/Omeka/ClientSettings")]
     public class ClientSettings : ScriptableObject
     {
@@ -19,6 +23,8 @@ namespace RenderHeads.UnityOmeka.Core
 
         /// <summary>
         /// The website hosting the Omeka S Rest API.
+        /// Do not include the /api.
+        /// Example http://my-domain.com
         /// </summary>
         public string OmekaEndpoint;
     }

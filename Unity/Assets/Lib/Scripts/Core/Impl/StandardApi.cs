@@ -14,11 +14,25 @@ using RenderHeads.UnityOmeka.Core.Extensions;
 namespace RenderHeads.UnityOmeka.Core.Impl
 {
 
+    /// <summary>
+    /// Implementation of the Omkey Client API
+    /// </summary>
+    /// <typeparam name="T">The type of vocabulary to use, so the api known what vocabulary to deserialize</typeparam>
     public class StandardApi<T> : IAPI<T> where T:Vocabulary,new()
     {
-
+        /// <summary>
+        /// Stores the api username / key
+        /// </summary>
         private string _id = string.Empty;
+
+        /// <summary>
+        /// stores api password
+        /// </summary>
         private string _key = string.Empty;
+
+        /// <summary>
+        ///  The endpoint to our API
+        /// </summary>
         private Uri _endpoint = null;
         public async Task<SearchResponse> Search(ResourceType resourceType, SearchParams searchParams)
         {

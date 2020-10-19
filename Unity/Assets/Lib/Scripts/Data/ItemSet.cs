@@ -8,7 +8,10 @@ using UnityEngine;
 
 namespace RenderHeads.UnityOmeka.Data
 {
-
+    /// <summary>
+    /// Definition of the ItemSet object as returned by api/item_sets
+    /// </summary>
+    /// <typeparam name="T">The type of vocabulary the item set supports</typeparam>
     [System.Serializable]
     public class ItemSet<T> where T : Vocabulary, new()
     {
@@ -24,12 +27,20 @@ namespace RenderHeads.UnityOmeka.Data
         public DateTime? Modified;
         public bool? IsOpen;
         public T Vocabulary;
-
         public static ItemSet<T> FromJObject(JObject jobject)
         {
             ItemSet<T> item = new ItemSet<T>();
             item.Id = IdObject.FromJObject(jobject);
-            item.Type = jobject["@type"].ToObject<string[]>();          
+            //the "@type" can come in as both a string and a string array, so we need to handle that
+            var type = jobject["@type"].ToObject<object>();
+            if (type.GetType() == typeof(string))
+            {
+                item.Type = new string[] { type.ToString() };
+            }
+            else
+            {
+                item.Type = jobject["@type"].ToObject<string[]>();
+            }
             item.IsPublic = Helpers.TryGet<JToken>(jobject,"o:is_public")?.ToObject<bool?>();
             item.Owner = IdObject.FromJObject(Helpers.TryGet<JObject>(jobject,"o:owner"));
             item.ResourceClass = IdObject.FromJObject(Helpers.TryGet<JObject>(jobject, "o:resource_class"));

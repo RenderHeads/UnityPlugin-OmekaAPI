@@ -6,7 +6,8 @@ using UnityEngine;
 namespace RenderHeads.UnityOmeka.Core.Extensions
 {
     /// <summary>
-    /// Allows for UnityWeb request to follow async / await pattern
+    /// Allows for UnityWeb request to follow async / await pattern instead of using coroutines, which is a lot neater.
+    /// This snippet came from:
     /// https://gist.github.com/mattyellen/d63f1f557d08f7254345bff77bfdc8b3
     /// </summary>
     public static class TaskExtension

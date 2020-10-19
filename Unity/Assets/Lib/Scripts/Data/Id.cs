@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace RenderHeads.UnityOmeka.Data
 {
+    /// <summary>
+    /// Class for mapping the JsonLD ID to .net ID.
+    /// </summary>
     public class IdObject
     {
         /// <summary>
@@ -13,7 +16,6 @@ namespace RenderHeads.UnityOmeka.Data
         public string Link;
 
         public int Id;
-
         public static IdObject FromJObject(JObject jobject)
         {
             if (jobject == null)
@@ -33,17 +35,13 @@ namespace RenderHeads.UnityOmeka.Data
             {
                 return null;
             }
-
             IdObject[] idObjects = new IdObject[array.Count];
-
             int n = 0;
-
             foreach (var entry in array)
             {
                 idObjects[n] = IdObject.FromJObject((JObject)entry);
                 n++;
             }
-
             return idObjects;
         }
     }

@@ -7,6 +7,9 @@ using UnityEngine;
 namespace RenderHeads.UnityOmeka.Data.Vocabularies
 {
 
+    /// <summary>
+    /// Definition of a Vocabulary property.
+    /// </summary>
     public class Property
     {
         public string Type;
@@ -16,10 +19,15 @@ namespace RenderHeads.UnityOmeka.Data.Vocabularies
         public string Value;
         public string Language;
 
+        /// <summary>
+        /// Finds a term/property array in a json object and  returns it as an array of properties
+        /// </summary>
+        /// <param name="root">The object to search (typically a response from a search)</param>
+        /// <param name="term">The term to search for, e.g. dcterms:title</param>
+        /// <returns>An array of properties, otherwise null if it can't find the property</returns>
         public static Property[] FromRoot(JObject root, string term)
         {
             JArray array;
-
             array = Helpers.TryGet<JArray>(root, term, supressError:true);
 
             if (array == null)
@@ -39,6 +47,11 @@ namespace RenderHeads.UnityOmeka.Data.Vocabularies
             }
         }
 
+        /// <summary>
+        /// Converts a Jobject (assumed to be in the "shape" of a property) to a Property object
+        /// </summary>
+        /// <param name="jObject">The JObject to convert</param>
+        /// <returns>A Property, if the Jobject does not conform, the values will be null</returns>
         public static Property FromJObject(JObject jObject)
         {
             Property p = new Property()
@@ -49,19 +62,14 @@ namespace RenderHeads.UnityOmeka.Data.Vocabularies
                 IsPublic = jObject["is_public"]?.ToObject<bool?>(),
                 Value = jObject["@value"]?.ToString(),
                 Language = jObject["@language"]?.ToString(),
-
-
-
             };
-
             return p;
         }
-
-
-
-
     }
 
+    /// <summary>
+    /// Base object that defines the concept of a "Vocabulary"
+    /// </summary>
     public abstract class Vocabulary
     {
         /// <summary>
@@ -70,6 +78,10 @@ namespace RenderHeads.UnityOmeka.Data.Vocabularies
         /// <param name="rootObject"></param>
         public abstract void ApplyVocabulary(JObject rootObject);
     }
+
+    /// <summary>
+    /// Definition for the Dublic Core vocabulary.
+    /// </summary>
     [System.Serializable]
     public class DublicCoreVocabulary : Vocabulary
     {
@@ -128,7 +140,6 @@ namespace RenderHeads.UnityOmeka.Data.Vocabularies
         public Property[] DCTermsTemporal;
         public Property[] DCTermsTitle;
         public Property[] DCTermsType;
-
         public override void ApplyVocabulary(JObject rootObject)
         {
             DCTermsAbstract = Property.FromRoot(rootObject, "dcterms:abstract");
@@ -185,7 +196,6 @@ namespace RenderHeads.UnityOmeka.Data.Vocabularies
             DCTermsTemporal = Property.FromRoot(rootObject, "dcterms:temporal");
             DCTermsTitle = Property.FromRoot(rootObject, "dcterms:title");
             DCTermsType = Property.FromRoot(rootObject, "dcterms:type");
-
         }
     }
 }

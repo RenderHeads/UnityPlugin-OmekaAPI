@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 135101366}
   - component: {fileID: 135101365}
   m_Layer: 5
-  m_Name: Image
+  m_Name: MediaDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,11 +144,11 @@ RectTransform:
   m_Father: {fileID: 703072616}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 366.3, y: -27.95}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &135101365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,7 +158,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 135101363}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: -98529514, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -167,15 +167,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!222 &135101366
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -359,7 +357,7 @@ GameObject:
   m_Layer: 5
   m_Name: SearchItemSets
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -423,18 +421,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 867524690}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1838968297}
-        m_MethodName: SearchItemSets
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &867524690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -821,7 +808,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 378aaeeba4f3b4b499999b45044cfd29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ButtonPrefab: {fileID: 2245446922520393034, guid: 2098cbe4d56c6dc4abb4ae97e5f95c2a,
+  _searchButton: {fileID: 867524689}
+  _buttonPrefab: {fileID: 2245446922520393034, guid: 2098cbe4d56c6dc4abb4ae97e5f95c2a,
     type: 3}
   _buttonRoot: {fileID: 224230314}
   _client: {fileID: 1838968295}
+  _mediaDisplay: {fileID: 135101365}

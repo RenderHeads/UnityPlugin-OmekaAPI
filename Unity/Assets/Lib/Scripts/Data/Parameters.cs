@@ -1,5 +1,7 @@
-﻿using System;
-
+﻿/// <summary>
+/// This file contains definitions of search parameters for the api.
+/// </summary>
+using System;
 namespace RenderHeads.UnityOmeka.Data
 {
     [System.Serializable]

@@ -8,6 +8,14 @@ namespace RenderHeads.UnityOmeka.Data
 {
     public static class Helpers
     {
+        /// <summary>
+        /// Helper function to try get a token from a Json.NET object and cast it to a specific type. Also handles the case where a key exists but its value is empty, in this case it returns null
+        /// </summary>
+        /// <typeparam name="T">The type to cast to</typeparam>
+        /// <param name="root">The Json Object to search</param>
+        /// <param name="key">The key to search for</param>
+        /// <param name="supressError">If true it won't print out an error if it can't find a key, default false</param>
+        /// <returns></returns>
         public static T TryGet<T>(JObject root, string key, bool supressError=false) where T:JToken
         {
             JToken token;
@@ -49,7 +57,12 @@ namespace RenderHeads.UnityOmeka.Data
             return DateTime.Parse(jobject["@value"].ToString());
         }
 
-        //https://stackoverflow.com/questions/24066400/checking-for-empty-or-null-jtoken-in-a-jobject
+        /// <summary>
+        /// Helper method to check if the a token is empty.
+        /// This code comes from: https://stackoverflow.com/questions/24066400/checking-for-empty-or-null-jtoken-in-a-jobject
+        /// </summary>
+        /// <param name="token">Token to check</param>
+        /// <returns>True if token is null or empty, otherwise false</returns>
         public static bool IsNullOrEmpty(JToken token)
         {
             return (token == null) ||

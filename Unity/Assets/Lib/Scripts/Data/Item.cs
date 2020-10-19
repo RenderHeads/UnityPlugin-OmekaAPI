@@ -8,7 +8,10 @@ using UnityEngine;
 
 namespace RenderHeads.UnityOmeka.Data
 {
-
+    /// <summary>
+    /// Definition of an item object, as returned by the  api/items endpoint
+    /// </summary>
+    /// <typeparam name="T">The vocabulary the Item has</typeparam>
     [System.Serializable]
     public class Item<T> where T : Vocabulary, new()
     {
@@ -25,12 +28,20 @@ namespace RenderHeads.UnityOmeka.Data
         public DateTime? Created;
         public DateTime? Modified;
         public T Vocabulary;
-
         public static Item<T> FromJObject(JObject jobject)
         {
             Item<T> item = new Item<T>();
             item.Id = IdObject.FromJObject(jobject);
-            item.Type = Helpers.TryGet<JArray>(jobject,"@type")?.ToObject<string[]>();
+            //the "@type" can come in as both a string and a string array, so we need to handle that
+            var type = jobject["@type"].ToObject<object>();
+            if (type.GetType() == typeof(string))
+            {
+                item.Type = new string[] { type.ToString() };
+            }
+            else
+            {
+                item.Type = jobject["@type"].ToObject<string[]>();
+            }
             item.IsPublic = Helpers.TryGet<JToken>(jobject, "o:is_public")?.ToObject<bool?>();
             item.Owner = IdObject.FromJObject(Helpers.TryGet<JObject>(jobject, "o:owner"));
             item.ResourceClass = IdObject.FromJObject(Helpers.TryGet<JObject>(jobject, "o:resource_class"));
@@ -45,9 +56,5 @@ namespace RenderHeads.UnityOmeka.Data
             item.Vocabulary.ApplyVocabulary(jobject);
             return item;
         }
-
-
     }
-
-
 }

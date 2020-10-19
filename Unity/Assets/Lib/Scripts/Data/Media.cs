@@ -8,15 +8,15 @@ using UnityEngine;
 
 namespace RenderHeads.UnityOmeka.Data
 {
-
-
+    /// <summary>
+    /// Definition of a Thumbnail URL object.
+    /// </summary>
     [System.Serializable]
     public class ThumbnailUrl
     {
         public string Large;
         public string Medium;
         public string Square;
-
         public static ThumbnailUrl FromJObject(JObject jobject)
         {
             if (jobject == null)
@@ -36,11 +36,16 @@ namespace RenderHeads.UnityOmeka.Data
             return t;
         }
     }
+
+    /// <summary>
+    /// Definition of a Media object as returned by api/media
+    /// </summary>
+    /// <typeparam name="T">The type of vocabulary the media supports</typeparam>
     [System.Serializable]
     public class Media<T> where T : Vocabulary, new()
     {
         public IdObject Id;
-        public string Type;
+        public string[] Type;
         public bool? IsPublic;
         public IdObject Owner;
         public IdObject ResourceClass;
@@ -69,7 +74,16 @@ namespace RenderHeads.UnityOmeka.Data
         {
             Media<T> media = new Media<T>();
             media.Id = IdObject.FromJObject(jobject);
-            media.Type = jobject["@type"].ToObject<string>();
+            //the "@type" can come in as both a string and a string array, so we need to handle that
+            var type = jobject["@type"].ToObject<object>();
+            if (type.GetType() == typeof(string))
+            {
+                media.Type = new string[] { type.ToString() };
+            }
+            else
+            {
+                media.Type = jobject["@type"].ToObject<string[]>();
+            }
             media.IsPublic = Helpers.TryGet<JToken>(jobject, "o:is_public")?.ToObject<bool?>();
             media.Owner = IdObject.FromJObject(Helpers.TryGet<JObject>(jobject, "o:owner"));
             media.ResourceClass = IdObject.FromJObject(Helpers.TryGet<JObject>(jobject, "o:resource_class"));

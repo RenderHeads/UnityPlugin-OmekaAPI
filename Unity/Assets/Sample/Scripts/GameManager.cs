@@ -9,77 +9,85 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using RenderHeads.UnityOmeka.Core.Extensions;
+using UnityEngine.Events;
+
 namespace RenderHeads.UnityOmeka.Example
 {
+    /// <summary>
+    /// An example script that lets us drill down from an item_set and display a piece of media
+    /// </summary>
     public class GameManager : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to our UI search button, so we can attach callback
+        /// </summary>
+        [SerializeField] private Button _searchButton = null;
 
-        [SerializeField] private Button ButtonPrefab = null;
+        /// <summary>
+        /// Reference to button that is instaniated after the API returns its response
+        /// </summary>
+        [SerializeField] private Button _buttonPrefab = null;
 
+        /// <summary>
+        /// Our instantiate buttons are parented here
+        /// </summary>
         [SerializeField] private Transform _buttonRoot = null;
 
+        /// <summary>
+        /// Reference to the API client
+        /// </summary>
         [SerializeField] private OmekaClient _client = null;
 
-        [SerializeField] private RawImage _mediaDisplay =null;
+        /// <summary>
+        /// Reference to a UI element to display our media after its downloaded
+        /// </summary>
+        [SerializeField] private RawImage _mediaDisplay = null;
 
+        /// <summary>
+        /// Texture reference that will store our media after its downloaded
+        /// </summary>
         private Texture2D _mediaDisplayTexture;
 
 
-        void Start()
+        private void Start()
         {
-
+            //attach our callback to our button
+            _searchButton.onClick.AddListener(SearchItemSets);
         }
 
+        /// <summary>
+        /// Callback that searchs for item sets
+        /// </summary>
         public async void SearchItemSets()
         {
             var response = await _client.Api.SearchItemSets(new ItemSetsSearchParams());
-
             GenerateItemSetButtons(response);
         }
 
-        private void GenerateItemSetButtons(ItemSetSearchResponse<DublicCoreVocabulary> response)
-        {
-            ClearChildren(_buttonRoot);
 
-            for (int i=0; i< response.ItemSets.Count;i++)
-            {
-                Button b = GameObject.Instantiate<Button>(ButtonPrefab);
-                b.GetComponentInChildren<Text>().text = response.ItemSets[i].Title;
-                IdObject idObject = response.ItemSets[i].Id;
-                b.onClick.AddListener(() => { SearchItemSet(idObject); });
-                b.gameObject.transform.SetParent(_buttonRoot);
-            }
+        /// <summary>
+        /// Search a specific item set and returns all its items
+        /// </summary>
+        /// <param name="index">The ID of the item set to search</param>
+        public async void SearchItemSet(IdObject index)
+        {
+            var response = await _client.Api.SearchItems(new ItemSearchParams() { item_set_id = index.Id });
+            GenerateItemButtons(response);
         }
 
-        private void GenerateItemButtons(ItemSearchResponse<DublicCoreVocabulary> response)
+        /// <summary>
+        /// Searched an Item for for media
+        /// </summary>
+        /// <param name="index">The ID of the item to search</param>
+        public async void SearchMedia(IdObject index)
         {
-            ClearChildren(_buttonRoot);
-
-            for (int i = 0; i < response.Items.Count; i++)
-            {
-                Button b = GameObject.Instantiate<Button>(ButtonPrefab);
-                b.GetComponentInChildren<Text>().text = response.Items[i].Title;
-                IdObject idObject = response.Items[i].Id;
-                b.onClick.AddListener(() => { SearchMedia(idObject); });
-                b.gameObject.transform.SetParent(_buttonRoot);
-            }
+            var response = await _client.Api.SearchMedia(new MediaSearchParams() { item_id = index.Id });
+            GenerateMediaButtons(response);
         }
-
-
-        private void GenerateMediaButtons(MediaSearchResponse<DublicCoreVocabulary> response)
-        {
-            ClearChildren(_buttonRoot);
-
-            for (int i = 0; i < response.Media.Count; i++)
-            {
-                Button b = GameObject.Instantiate<Button>(ButtonPrefab);
-                b.GetComponentInChildren<Text>().text = response.Media[i].Title;
-                string url  = response.Media[i].OriginalUrl;
-                b.onClick.AddListener(() => { ShowMedia(url); });
-                b.gameObject.transform.SetParent(_buttonRoot);
-            }
-        }
-
+        /// <summary>
+        /// Downloads a specific piece of media from a URL and displays it
+        /// </summary>
+        /// <param name="url">The path to the file</param>
         private async void ShowMedia(string url)
         {
             var request = UnityWebRequestTexture.GetTexture(url);
@@ -88,7 +96,7 @@ namespace RenderHeads.UnityOmeka.Example
 
             if (!request.isNetworkError && !request.isHttpError)
             {
-                if (_mediaDisplayTexture !=null)
+                if (_mediaDisplayTexture != null)
                 {
                     GameObject.Destroy(_mediaDisplayTexture);
                 }
@@ -98,21 +106,47 @@ namespace RenderHeads.UnityOmeka.Example
             }
         }
 
-     
 
-        public async void SearchItemSet(IdObject index)
+        private void GenerateItemSetButtons(ItemSetSearchResponse<DublicCoreVocabulary> response)
         {
-            var response = await _client.Api.SearchItems(new ItemSearchParams() { item_set_id = index.Id });
-            GenerateItemButtons(response);
+            ClearChildren(_buttonRoot);
+            for (int i = 0; i < response.ItemSets.Count; i++)
+            {
+                IdObject idObject = response.ItemSets[i].Id;
+                GenerateButton(response.ItemSets[i].Title, () => { SearchItemSet(idObject); });
+            }
+        }
+        private void GenerateItemButtons(ItemSearchResponse<DublicCoreVocabulary> response)
+        {
+            ClearChildren(_buttonRoot);
+            for (int i = 0; i < response.Items.Count; i++)
+            {
+                IdObject idObject = response.Items[i].Id;
+                GenerateButton(response.Items[i].Title, () => { SearchMedia(idObject); });
+            }
         }
 
-        public async void SearchMedia(IdObject index)
+        private void GenerateMediaButtons(MediaSearchResponse<DublicCoreVocabulary> response)
         {
-            var response = await _client.Api.SearchMedia(new MediaSearchParams() { item_id = index.Id });
-            GenerateMediaButtons(response);
+            ClearChildren(_buttonRoot);
+            for (int i = 0; i < response.Media.Count; i++)
+            {
+                int n = i;
+                GenerateButton(response.Media[n].Title, () => { ShowMedia(response.Media[n].OriginalUrl); });
+            }
         }
 
+        private Button GenerateButton(string buttonName, UnityAction callback)
+        {
+            Button b = GameObject.Instantiate<Button>(_buttonPrefab);
+            b.GetComponentInChildren<Text>().text = buttonName;
+            b.onClick.AddListener(callback);
 
+            b.gameObject.transform.SetParent(_buttonRoot);
+
+            return b;
+
+        }
         private void ClearChildren(Transform T)
         {
             for (int i = 0; i < T.childCount; i++)
