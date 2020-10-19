@@ -1,7 +1,7 @@
 
 
 <p align="center">
-  <b>© <a href="http://www.renderheads.com">RenderHeads </a> 2020<b/>
+  <b>© <a href="http://www.renderheads.com">RenderHeads </a> 2020</b>
 </p>
 <p align ="center"> Author / Maintainer: <a href="https://www.shanemarks.co.za">Shane Marks</a> </p>
 
