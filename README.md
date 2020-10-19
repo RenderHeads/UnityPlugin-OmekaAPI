@@ -34,7 +34,8 @@ The endpoint does not need to include /api/ at the end
 Add the OmekaClient component to your scene. This will initialize an instance of the API on awake.
 
 ### Use the API and make requests
-Call the relevant API endpoint with search parameters, for example:
+
+Find a reference to the API component and call the relevant API endpoint with search parameters, for example:
 
 `ItemSearchResponse<DublicCoreVocabulary> response = await _client.Api.SearchItems(new ItemSearchParams() { item_set_id = index.Id });`
 
@@ -51,4 +52,3 @@ Each API endpoint returns a response object, which include the URL that was requ
 The implementation currently supports a Dublin Core Vocabulary, and will convert the dublin core meta data to a typed object. If you need to support a custom vocabulary or a different vocabulary, you can create a new class that inherits type Vocabulary, and implement the abstract method to parse the JSON data, as per the DublinCore implementation.
 
 
- 
