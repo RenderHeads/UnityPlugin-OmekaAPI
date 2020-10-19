@@ -54,7 +54,7 @@ namespace RenderHeads.UnityOmeka.Core.Impl
         }
 
         /// <summary>
-        /// Using reflection we can tern our parameters into  a query string
+        /// Using reflection we can turn our parameters into  a query string
         /// </summary>
         /// <param name="parameters">The parameters related to the query you want to filter by</param>
         /// <returns>A query string</returns>
