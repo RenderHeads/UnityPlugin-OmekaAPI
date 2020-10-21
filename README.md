@@ -10,7 +10,7 @@
 
 # [Omeka-S](https://omeka.org/) API support for Unity
 
-This repository contains an implementation of the Omeka API for Unity3D to retrieve content from an Omeka System and use it within unity.
+This repository contains an implementation of the Omeka API for the Unity game engine to retrieve content from an Omeka System and use it within unity.
 
 ## What is Omeka-S?
 Omeka S is a web publication system for universities, galleries, libraries, archives, and museums. It consists of a local network of independently curated exhibits sharing a collaboratively built pool of items, media, and their metadata.
