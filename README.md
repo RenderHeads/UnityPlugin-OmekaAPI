@@ -20,7 +20,7 @@ Read-only support. Currently there are no plans for adding write support (maybe 
 
 Api search of *Item Sets, Items and Media*. I felt this subset of features gives the most coverage for typical usage in Unity.
 
-Dublin Core Vocabulary. The API client is designed in such a way that you can extend support for other vocabularies easily.
+[Dublin Core](https://dublincore.org/) Vocabulary. The API client is designed in such a way that you can extend support for other vocabularies easily.
 
 ## Dependencies
 The implementation relies on [NewtonSoft Json.Net]() for deserialization of the Json-LD information returned from the API. We have included a vanilla build of the library, however there is a Unity specific version available on the [unity asset store](https://assetstore.unity.com/packages/tools/input-management/json-net-for-unity-11347) that you should use in your production project.
